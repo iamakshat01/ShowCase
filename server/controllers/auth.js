@@ -6,7 +6,7 @@ const register = async function (request, reply) {
     
     try {
         
-        const token = await this.googleOAuth2.getAccessTokenFromAuthorizationCodeFlow(request)
+        const access_token = request.body.token
         // if later you need to refresh the token you can use
         // const newToken = await this.getNewAccessTokenUsingRefreshToken(token.refresh_token)
         // reply.send({ access_token: token.access_token })
@@ -15,7 +15,7 @@ const register = async function (request, reply) {
         const data = await sget.get({
             url: 'https://www.googleapis.com/oauth2/v2/userinfo',
             headers: {
-                Authorization: 'Bearer ' + token.access_token
+                Authorization: 'Bearer ' + access_token
             },
         }).then(sget.asJson)
 

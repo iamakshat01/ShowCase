@@ -8,7 +8,7 @@ const user = {
 function authRoutes (fastify, options, done) {
     
     // CALLBACK AFTER GETTING ACCESS TOKEN FROM /LOGIN/GOOGLE
-    fastify.get('/login/google/callback',user)
+    fastify.post('/login/google',user)
     
     fastify.get('/user/profile',{
         type: 'object',

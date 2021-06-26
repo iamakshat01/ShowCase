@@ -22,25 +22,6 @@ fastify.register(require('fastify-swagger'), {
 })
 
 
-// Oauth2.0 for google
-fastify.register(oauthPlugin, {
-  name: 'googleOAuth2',
-  scope: ['profile', 'email'],
-  credentials: {
-    client: {
-      id: process.env.GOOGLE,
-      secret: process.env.GSECRET
-    },
-    auth: oauthPlugin.GOOGLE_CONFIGURATION,
-  },
-  startRedirectPath: '/login/google',
-  callbackUri: process.env.SERVER+'login/google/callback',
-  callbackUriParams: {
-    // custom query param that will be passed to callbackUri
-    access_type: 'offline', // will tell Google to send a refreshToken too
-  },
-});
-
 
 // enabling jwt and adding a authenticate middle function
 fastify.register(require("fastify-jwt"), {

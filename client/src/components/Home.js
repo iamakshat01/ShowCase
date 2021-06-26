@@ -4,6 +4,8 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { Typography } from '@material-ui/core';
 import present from '../present.png'
+import GoogleLogin from 'react-google-login';
+import { setToken,call } from '../api';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,6 +42,14 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Home() {
   const classes = useStyles();
+  
+  const responseGoogle = (response) => {
+    console.log(response.accessToken);
+    call('post','login/google',{token:response.accessToken})
+    .then((data)=>{
+      console.log(data)
+    })
+  }
 
   return (
     <div className={classes.root}>
@@ -54,7 +64,16 @@ export default function Home() {
             <Typography className={classes.title}>
                 Easiest Way To ShowCase Your Products To World
             </Typography>
-            
+
+            <GoogleLogin
+                clientId={process.env.REACT_APP_CLIENTID}
+                buttonText="Login"
+                onSuccess={responseGoogle}
+                onFailure={responseGoogle}
+                cookiePolicy={'single_host_origin'}
+            />
+
+
            </Paper>
         </Grid>
 
